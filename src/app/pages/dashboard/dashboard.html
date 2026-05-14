@@ -1,0 +1,68 @@
+<div class="dashboard-container">
+    <mat-card-header>
+      <mat-card-title>Lista de Produtos</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="produtos" class="mat-elevation-z0">
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef>Produto</th>
+            <td mat-cell *matCellDef="let produto">
+              {{ produto.nome }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="preco">
+            <th mat-header-cell *matHeaderCellDef>Preço</th>
+            <td mat-cell *matCellDef="let produto">
+              {{ produto.preco | currency:'BRL' }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="validade">
+            <th mat-header-cell *matHeaderCellDef>Validade</th>
+            <td mat-cell *matCellDef="let produto">
+              {{ produto.validade }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="estoque">
+            <th mat-header-cell *matHeaderCellDef>Estoque</th>
+            <td mat-cell *matCellDef="let produto">
+              {{ produto.estoque }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let produto">
+              <mat-chip
+                [class.success]="produto.status === 'Em estoque'"
+                [class.warning]="produto.status === 'Baixo estoque'"
+                [class.danger]="produto.status === 'Sem estoque'"
+              >
+                {{ produto.status }}
+              </mat-chip>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef>Ações</th>
+            <td mat-cell *matCellDef="let produto">
+              <button mat-icon-button color="primary">
+                <mat-icon>edit</mat-icon>
+              </button>
+
+              <button mat-icon-button color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+</div>

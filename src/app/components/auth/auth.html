@@ -1,1 +1,132 @@
-<p>auth works!</p>
+<div class="auth-container">
+  <mat-card class="auth-card">
+    <div class="auth-header">
+      <h1>
+        {{ isLogin() ? 'Login' : 'Criar Conta' }}
+      </h1>
+
+      <p>Sistema de Dashboard de Vendas</p>
+    </div>
+
+    <!-- LOGIN -->
+    <form
+      *ngIf="isLogin()"
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+        />
+
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          formControlName="password"
+        />
+
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword.set(!hidePassword())"
+        >
+          <mat-icon>
+            {{ hidePassword() ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        Entrar
+      </button>
+    </form>
+
+    <!-- CADASTRO -->
+    <form
+      *ngIf="!isLogin()"
+      [formGroup]="registerForm"
+      (ngSubmit)="register()"
+    >
+      <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+
+        <input
+          matInput
+          type="text"
+          formControlName="nome"
+        />
+
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+        />
+
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Senha</mat-label>
+
+        <input
+          matInput
+          [type]="hidePassword() ? 'password' : 'text'"
+          formControlName="password"
+        />
+
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="hidePassword.set(!hidePassword())"
+        >
+          <mat-icon>
+            {{ hidePassword() ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+      >
+        Criar Conta
+      </button>
+    </form>
+
+    <button
+      mat-button
+      type="button"
+      class="switch-button"
+      (click)="toggleMode()"
+    >
+      {{
+        isLogin()
+          ? 'Não possui conta? Cadastre-se'
+          : 'Já possui conta? Entrar'
+      }}
+    </button>
+  </mat-card>
+</div>

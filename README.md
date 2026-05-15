@@ -1,59 +1,284 @@
-# DashboardVendas
+# Dashboard de Vendas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
+## Sobre o Projeto
 
-## Development server
+O Dashboard de Vendas é uma aplicação desenvolvida em Angular com Angular Material que permite o gerenciamento de produtos de forma simples e moderna.
 
-To start a local development server, run:
+O sistema possui funcionalidades de autenticação, cadastro de produtos, edição, remoção, upload de imagens e controle de estoque.
+
+O objetivo do projeto foi aplicar conceitos modernos vistos em sala de aula utilizando Angular 21.
+
+---
+
+# Tecnologias Utilizadas
+
+* Angular 21
+* Angular Material
+* TypeScript
+* SCSS
+* JSON Server
+* Signals
+* Standalone Components
+
+---
+
+# Funcionalidades
+
+## Autenticação
+
+* Cadastro de usuários
+* Login de usuários
+* Validação de formulário
+* Redirecionamento para dashboard
+* Feedback visual com SnackBar
+
+---
+
+## Dashboard
+
+* Listagem de produtos
+* Cadastro de produtos
+* Edição de produtos
+* Exclusão de produtos
+* Controle de estoque
+* Upload de imagens
+* Preview de imagens
+* Status automático de estoque
+
+---
+
+# Estrutura do Projeto
+
+```text
+src/
+ ├── app/
+ │   ├── pages/
+ │   │   ├── auth/
+ │   │   └── dashboard/
+ │   │
+ │   ├── services/
+ │   ├── pipes/
+ │   ├── guards/
+ │   └── models/
+ │
+ │   └── components/
+ │
+ ├── assets/
+ │   └── products/
+ │
+ └── material-theme.scss
+```
+
+---
+
+# Componentização
+
+A interface foi dividida em componentes reutilizáveis:
+
+* Product Form
+* Product Table
+* Product Card
+* Product Dialog
+
+Isso melhora organização, manutenção e reutilização do código.
+
+---
+
+# Signals
+
+Signals foram utilizados para gerenciamento reativo de estados.
+
+Exemplo:
+
+```ts
+produtos = signal<Produtointerface[]>([])
+```
+
+Os signals atualizam automaticamente a interface quando os dados mudam.
+
+---
+
+# Input e Output
+
+A comunicação entre componentes foi feita utilizando Input e Output.
+
+## Input
+
+```ts
+produtos = input.required<Produtointerface[]>()
+```
+
+## Output
+
+```ts
+save = output<Produtointerface>()
+```
+
+---
+
+# Pipes
+
+O projeto utiliza pipes nativos e personalizados.
+
+## Currency Pipe
+
+```html
+{{ produto.preco | currency:'BRL' }}
+```
+
+## Pipe Personalizado
+
+```ts
+StatusEstoquePipe
+```
+
+Responsável por transformar a quantidade em status de estoque.
+
+---
+
+# Control Flow
+
+Foi utilizado o novo Control Flow do Angular.
+
+Exemplo:
+
+```html
+@if(produtos().length === 0)
+```
+
+---
+
+# CSS Estático e Dinâmico
+
+## CSS Estático
+
+Utilizado para layout e estilização geral.
+
+## CSS Dinâmico
+
+Utilizado para alterar cores conforme status do estoque.
+
+Exemplo:
+
+```html
+[class.success]="produto.status === 'Em estoque'"
+```
+
+---
+
+# Angular Material
+
+A estilização foi feita utilizando Angular Material.
+
+Componentes utilizados:
+
+* MatCard
+* MatTable
+* MatDialog
+* MatSnackBar
+* MatButton
+* MatIcon
+* MatInput
+* MatChip
+
+---
+
+# Upload de Imagem
+
+O sistema permite upload de imagens utilizando FileReader.
+
+Exemplo:
+
+```ts
+const reader = new FileReader()
+```
+
+As imagens possuem preview antes do salvamento.
+
+---
+
+# Banco de Dados
+
+Foi utilizado JSON Server para simular uma API REST.
+
+## Instalação
+
+```bash
+npm install -g json-server
+```
+
+## Executar servidor
+
+```bash
+npx json-server --watch db.json
+```
+
+API:
+
+```text
+http://localhost:3000/users
+```
+
+---
+
+# Como Executar o Projeto
+
+## Instalar dependências
+
+```bash
+npm install
+```
+
+---
+
+## Executar Angular
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Aplicação:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```text
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
+
+## Executar JSON Server
 
 ```bash
-ng generate --help
+npx json-server --watch db.json
 ```
 
-## Building
+---
 
-To build the project run:
+# Requisitos Aplicados
 
-```bash
-ng build
-```
+## Requisitos Mínimos
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+* Componentização da interface
+* Utilização de signal
+* Utilização de input e output
+* Utilização e criação de pipes
+* Utilização de control flow
+* Utilização de CSS estático e dinâmico
+* Estilização utilizando Angular Material
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+# Funcionalidades Extras
 
-```bash
-ng test
-```
+* CRUD completo
+* Upload de imagens
+* Preview de imagens
+* Modal de edição
+* Login e cadastro
+* Tema dark
+* Responsividade
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+# Autor
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Projeto desenvolvido para aplicação prática dos conteúdos de Angular vistos em sala de aula.

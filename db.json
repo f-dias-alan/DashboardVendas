@@ -6,6 +6,5 @@
       "password": "alan4321",
       "id": "xFJ7INJzHA4"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+ ]
 }

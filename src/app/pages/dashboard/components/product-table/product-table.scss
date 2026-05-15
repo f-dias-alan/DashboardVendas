@@ -1,0 +1,43 @@
+.table-card {
+
+  padding: 24px;
+
+  border-radius: 20px;
+}
+
+table {
+
+  width: 100%;
+}
+
+.product-image {
+
+  width: 60px;
+
+  height: 60px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+}
+
+.success {
+
+  background: green !important;
+
+  color: white !important;
+}
+
+.warning {
+
+  background: orange !important;
+
+  color: white !important;
+}
+
+.danger {
+
+  background: red !important;
+
+  color: white !important;
+}

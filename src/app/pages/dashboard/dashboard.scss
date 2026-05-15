@@ -1,83 +1,25 @@
 .dashboard-container {
+  padding: 24px;
+  background: var(--mat-sys-surface);
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 32px;
     font-weight: 700;
-    color: #c6c9cd;
   }
 
   p {
-    margin-top: 4px;
-    color: #6b7280;
-  }
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-.info-card {
-  border-radius: 16px;
-
-  .card-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .card-title {
-    color: #6b7280;
-    font-size: 14px;
-  }
-
-  h2 {
-    margin-top: 8px;
-    font-size: 32px;
-    color: #d6d6d7;
-  }
-
-  mat-icon {
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
-    color: #c3c3c6;
+    color: gray;
   }
 }
 
-.table-card {
-  border-radius: 16px;
-}
-
-.table-container {
-  overflow-x: auto;
-}
-
-table {
-  width: 100%;
-}
-
-th {
-  font-weight: 700;
-  color: #c3c6cb;
-}
-
-td,
-th {
-  padding: 16px !important;
-}
-
-mat-chip {
-  color: white;
-  font-weight: 600;
-}
-
-.success {
-  background-color: #22c55e !important;
-}
-
-.warning {
-  background-color: #f59e0b !important;
-}
-
-.danger {
-  background-color: #ef4444 !important;
+.empty-state {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 18px;
 }

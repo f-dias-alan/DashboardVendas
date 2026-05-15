@@ -1,79 +1,71 @@
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatChipsModule } from '@angular/material/chips';
 
-interface Produto {
-  nome: string;
-  preco: number;
-  validade: string;
-  estoque: number;
-  status: 'Em estoque' | 'Baixo estoque' | 'Sem estoque';
-}
+import { Produtointerface } from '../../models/produto.interface/produto.interface-module';
 
+import { MatDialog } from '@angular/material/dialog';
+
+import { ProductDialogComponent } from './components/product-dialog/product-dialog';
+
+import { ProductTableComponent } from './components/product-table/product-table';
+import { ProductFormComponent } from './components/product-form/product-form';
+import { ProductCardComponent } from './components/product-card/product-card';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    MatChipsModule,
-  ],
+  imports: [CommonModule, ProductTableComponent, ProductFormComponent, ProductCardComponent],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
 })
 export class DashboardComponent {
-  displayedColumns: string[] = [
-    'nome',
-    'preco',
-    'validade',
-    'estoque',
-    'status',
-    'acoes',
-  ];
-
-  produtos: Produto[] = [
+  produtos = signal<Produtointerface[]>([
     {
+      id: 1,
       nome: 'Notebook Gamer',
-      preco: 4599.90,
-      validade: '10/12/2026',
+      preco: 4599.9,
+      validade: '2026-12-10',
       estoque: 15,
       status: 'Em estoque',
     },
-    {
-      nome: 'Mouse RGB',
-      preco: 149.90,
-      validade: '01/08/2026',
-      estoque: 4,
-      status: 'Baixo estoque',
-    },
-    {
-      nome: 'Teclado Mecânico',
-      preco: 399.90,
-      validade: '15/11/2026',
-      estoque: 0,
-      status: 'Sem estoque',
-    },
-    {
-      nome: 'Monitor UltraWide',
-      preco: 1899.99,
-      validade: '22/09/2027',
-      estoque: 8,
-      status: 'Em estoque',
-    },
-  ];
+  ]);
 
-  getTotalProdutos(): number {
-    return this.produtos.length;
+  deleteProduto(id: number): void {
+    this.produtos.update((lista) => lista.filter((produto) => produto.id !== id));
   }
 
-  getTotalEstoque(): number {
-    return this.produtos.reduce((total, item) => total + item.estoque, 0);
+  produtoEmEdicao = signal<Produtointerface | null>(null);
+
+  addProduto(produto: Produtointerface): void {
+    const existe = this.produtos().find((p) => p.id === produto.id);
+
+    if (existe) {
+      this.produtos.update((lista) =>
+        lista.map((item) => (item.id === produto.id ? produto : item)),
+      );
+
+      this.produtoEmEdicao.set(null);
+
+      return;
+    }
+
+    this.produtos.update((lista) => [...lista, produto]);
   }
+
+  editProduto(produto: Produtointerface): void {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
+      width: '900px',
+
+      data: produto,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) {
+        return;
+      }
+
+      this.produtos.update((lista) => lista.map((item) => (item.id === result.id ? result : item)));
+    });
+  }
+
+  constructor(private dialog: MatDialog) {}
 }

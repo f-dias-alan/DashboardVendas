@@ -1,8 +1,9 @@
 import {
   Component,
+  effect,
   input,
   output,
-  effect,
+  signal,
 } from '@angular/core';
 
 import {
@@ -15,8 +16,11 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
+
 import { MatInputModule } from '@angular/material/input';
+
 import { MatButtonModule } from '@angular/material/button';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { Produtointerface } from '../../../../models/produto.interface/produto.interface-module';
@@ -43,60 +47,95 @@ export class ProductFormComponent {
 
   save = output<Produtointerface>();
 
-  produtoEdicao = input<Produtointerface | null>(null);
+  produtoEdicao =
+    input<Produtointerface | null>(null);
+
+  imagemPreview = signal('');
 
   form: FormGroup;
 
-  imagemPreview: string = '';
-
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+  ) {
 
     this.form = this.fb.group({
 
       id: [0],
 
-      nome: ['', Validators.required],
+      nome: [
+        '',
+        Validators.required,
+      ],
 
-      preco: [null, Validators.required],
+      preco: [
+        null,
+        Validators.required,
+      ],
 
-      validade: ['', Validators.required],
+      validade: [
+        '',
+        Validators.required,
+      ],
 
-      estoque: [null, Validators.required],
+      estoque: [
+        null,
+        Validators.required,
+      ],
 
       imagem: [''],
     });
 
     effect(() => {
 
-      const produto = this.produtoEdicao();
+      const produto =
+        this.produtoEdicao();
 
-      if (produto) {
-
-        this.form.patchValue(produto);
-
-        this.imagemPreview = produto.imagem || '';
+      if (!produto) {
+        return;
       }
+
+      this.form.patchValue(produto);
+
+      this.imagemPreview.set(
+        produto.imagem || ''
+      );
     });
   }
 
   onFileSelected(event: Event): void {
 
-    const input = event.target as HTMLInputElement;
+    const input =
+      event.target as HTMLInputElement;
 
-    if (!input.files?.length) {
+    if (
+      !input.files ||
+      input.files.length === 0
+    ) {
       return;
     }
 
     const file = input.files[0];
 
+    if (
+      !file.type.startsWith('image/')
+    ) {
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onload = () => {
 
-      this.imagemPreview = reader.result as string;
+      const imageBase64 =
+        reader.result as string;
+
+      this.imagemPreview.set(
+        imageBase64
+      );
 
       this.form.patchValue({
-        imagem: this.imagemPreview,
+
+        imagem: imageBase64,
       });
     };
 
@@ -112,9 +151,11 @@ export class ProductFormComponent {
       return;
     }
 
-    const estoque = this.form.value.estoque;
+    const estoque =
+      this.form.value.estoque;
 
-    let status: Produtointerface['status'];
+    let status:
+      Produtointerface['status'];
 
     if (estoque === 0) {
 
@@ -133,13 +174,31 @@ export class ProductFormComponent {
 
       ...this.form.value,
 
-      id: this.form.value.id || Date.now(),
+      id:
+        this.form.value.id ||
+        Date.now(),
 
       status,
     });
 
     this.form.reset();
 
-    this.imagemPreview = '';
+    Object.keys(this.form.controls)
+      .forEach(key => {
+
+        this.form
+          .get(key)
+          ?.setErrors(null);
+
+        this.form
+          .get(key)
+          ?.markAsPristine();
+
+        this.form
+          .get(key)
+          ?.markAsUntouched();
+      });
+
+    this.imagemPreview.set('');
   }
 }

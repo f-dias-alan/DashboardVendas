@@ -19,15 +19,51 @@ import { ProductCardComponent } from './components/product-card/product-card';
 })
 export class DashboardComponent {
   produtos = signal<Produtointerface[]>([
-    {
-      id: 1,
-      nome: 'Notebook Gamer',
-      preco: 4599.9,
-      validade: '2026-12-10',
-      estoque: 15,
-      status: 'Em estoque',
-    },
-  ]);
+
+  {
+    id: 1,
+
+    nome: 'Notebook Gamer',
+
+    preco: 4599.90,
+
+    validade: '2027-12-10',
+
+    estoque: 15,
+
+    status: 'Em estoque',
+
+  },
+
+  {
+    id: 2,
+
+    nome: 'Manto Flamengo',
+
+    preco: 89.90,
+
+    validade: '2027-08-20',
+
+    estoque: 8,
+
+    status: 'Em estoque',
+
+  },
+
+  {
+    id: 3,
+
+    nome: 'Controle Xbox',
+
+    preco: 349.90,
+
+    validade: '2028-01-15',
+
+    estoque: 3,
+
+    status: 'Baixo estoque',
+  },
+]);
 
   deleteProduto(id: number): void {
     this.produtos.update((lista) => lista.filter((produto) => produto.id !== id));
@@ -36,19 +72,18 @@ export class DashboardComponent {
   produtoEmEdicao = signal<Produtointerface | null>(null);
 
   addProduto(produto: Produtointerface): void {
-    const existe = this.produtos().find((p) => p.id === produto.id);
+    const existe = this.produtos().find(p => p.id === produto.id);
 
     if (existe) {
-      this.produtos.update((lista) =>
-        lista.map((item) => (item.id === produto.id ? produto : item)),
+      this.produtos.update(lista =>
+        lista.map(item =>
+          item.id === produto.id ? produto : item
+        )
       );
-
-      this.produtoEmEdicao.set(null);
-
       return;
     }
 
-    this.produtos.update((lista) => [...lista, produto]);
+    this.produtos.update(lista => [...lista, produto]);
   }
 
   editProduto(produto: Produtointerface): void {
@@ -68,4 +103,5 @@ export class DashboardComponent {
   }
 
   constructor(private dialog: MatDialog) {}
+
 }

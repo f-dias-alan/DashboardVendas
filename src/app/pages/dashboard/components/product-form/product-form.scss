@@ -2,12 +2,12 @@
 
   padding: 24px;
 
-  border-radius: 20px;
+  border-radius: 24px;
 
   margin-bottom: 24px;
 }
 
-form {
+.form-grid {
 
   display: grid;
 
@@ -15,46 +15,47 @@ form {
     repeat(auto-fit, minmax(220px, 1fr));
 
   gap: 16px;
-}
-
-.upload-container {
-
-  display: flex;
 
   align-items: center;
 }
 
-.upload-container label {
+.upload-area {
 
-  background: #1976d2;
+  display: flex;
 
-  color: white;
+  align-items: center;
 
-  padding: 12px 20px;
-
-  border-radius: 12px;
-
-  cursor: pointer;
-
-  font-weight: 500;
+  gap: 12px;
 }
 
 .preview {
 
+  margin-top: 24px;
+
   display: flex;
 
-  align-items: center;
+  justify-content: center;
 }
 
 .preview img {
 
-  width: 100px;
+  width: 120px;
 
-  height: 100px;
+  height: 120px;
+
+  min-width: 120px;
+
+  max-width: 120px;
+
+  min-height: 120px;
+
+  max-height: 120px;
 
   object-fit: cover;
 
   border-radius: 16px;
 
-  border: 2px solid #ddd;
+  border: 2px solid #444;
+
+  display: block;
 }

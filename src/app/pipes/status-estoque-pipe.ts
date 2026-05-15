@@ -12,7 +12,7 @@ export class StatusEstoquePipe implements PipeTransform {
       return 'Sem estoque';
     }
 
-    if (estoque < 5) {
+    if (estoque < 10) {
       return 'Baixo estoque';
     }
 

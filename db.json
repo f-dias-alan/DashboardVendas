@@ -5,6 +5,13 @@
       "email": "desenvolvedor.alandias@gmail.com",
       "password": "alan4321",
       "id": "xFJ7INJzHA4"
+    },
+    {
+      "nome": "user2",
+      "email": "francisco.alandias@gmail.com",
+      "password": "alan4321",
+      "id": "tlUNg_VjwoM"
     }
- ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -38,6 +38,66 @@ export class DashboardComponent {
   {
     id: 2,
 
+    nome: 'Notebook Gamer',
+
+    preco: 4599.90,
+
+    validade: '2027-12-10',
+
+    estoque: 15,
+
+    status: 'Em estoque',
+
+  },
+
+  {
+    id: 3,
+
+    nome: 'Notebook Gamer',
+
+    preco: 4599.90,
+
+    validade: '2027-12-10',
+
+    estoque: 15,
+
+    status: 'Em estoque',
+
+  },
+
+  {
+    id: 4,
+
+    nome: 'Notebook Gamer',
+
+    preco: 4599.90,
+
+    validade: '2027-12-10',
+
+    estoque: 15,
+
+    status: 'Em estoque',
+
+  },
+
+  {
+    id: 5,
+
+    nome: 'Notebook Gamer',
+
+    preco: 4599.90,
+
+    validade: '2027-12-10',
+
+    estoque: 15,
+
+    status: 'Em estoque',
+
+  },
+
+  {
+    id: 6,
+
     nome: 'Manto Flamengo',
 
     preco: 89.90,
@@ -51,7 +111,7 @@ export class DashboardComponent {
   },
 
   {
-    id: 3,
+    id: 7,
 
     nome: 'Controle Xbox',
 
